@@ -2,6 +2,17 @@
  include "server.php";
  include "partials/header.php";
 ?>
+  <!-- Metto una finestra modale che mi dice che ho cancellato un elemento -->
+  <?php if (!empty($_GET["roomNumber"])) { ?>
+
+    <div class="alert alert-danger">
+       Hai cancellato la stanza: <?php echo $_GET["roomNumber"]  ?>
+
+    </div>
+
+
+
+  <?php } ?>
 
      <div class="container">
        <div class="row">
@@ -27,7 +38,13 @@
                      <td><?php echo $room["floor"] ?></td>
                      <td><a href="show/show.php?id=<?php echo $room["id"] ?>">VIEW</a></td>
                      <td><a href="#">UPDATE</a></td>
-                     <td><a href="#">DELETE</a></td>
+                     <td>
+                       <form action="delete/server.php" method="POST">
+                         <input type="hidden" name="id" value="<?php echo $room["id"] ?>">
+                         <input class="btn btn-danger" type="submit" value="DELETE">
+
+                       </form>
+                     </td>
                    </tr>
                  <?php }
                }
